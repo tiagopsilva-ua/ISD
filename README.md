@@ -760,3 +760,45 @@ Para encontrar o **dual** de qualquer expressão booleana, aplicamos duas regras
 ### Exemplo prático com parênteses:
 * **Expressão original:** $F = (A \cdot B) + (C' \cdot 1)$
 * **Expressão dual ($F^D$):** $F^D = (A + B) \cdot (C' + 0)$
+
+# Truth Table (Tabela da Verdade)
+
+Uma **Tabela da Verdade** (*Truth Table*) é uma representação matemática que lista todas as combinações possíveis dos valores das entradas lógicas de um circuito (ou expressão booleana) e mostra o valor correspondente da(s) saída(s) para cada caso.
+
+---
+
+## 1. Número de Combinações (Linhas)
+
+Se um circuito possui **$N$ variáveis de entrada**, o número total de linhas (combinações binárias possíveis) na tabela é dado por:
+
+$$\text{Número de linhas} = 2^N$$
+
+* **$2$ entradas** ($A, B$) $\rightarrow 2^2 = \mathbf{4}$ linhas (de `00` a `11`)
+* **$3$ entradas** ($A, B, C$) $\rightarrow 2^3 = \mathbf{8}$ linhas (de `000` a `111`)
+* **$4$ entradas** ($A, B, C, D$) $\rightarrow 2^4 = \mathbf{16}$ linhas (de `0000` a `1111`)
+
+---
+
+## 2. Como construir uma Tabela da Verdade
+
+Para evitar saltar combinações, as entradas preenchem-se sempre em **ordem binária crescente** (do $0$ até $2^N - 1$):
+* A coluna mais à direita (LSB) alterna a cada linha: `0, 1, 0, 1...`
+* A segunda coluna da direita alterna de 2 em 2: `0, 0, 1, 1...`
+* A terceira coluna alterna de 4 em 4: `0, 0, 0, 0, 1, 1, 1, 1...`
+
+---
+
+## 3. Exemplo Prático: Expressão $F = (A \cdot B) + C'$
+
+Como temos $3$ variáveis ($A, B, C$), a tabela terá $2^3 = 8$ linhas. Para facilitar o cálculo manual, podemos incluir colunas intermédias ($A \cdot B$ e $C'$):
+
+| Linha | A | B | C | $A \cdot B$ | $C'$ | **F = $(A \cdot B) + C'$** |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **0** | 0 | 0 | 0 | 0 | 1 | **1** |
+| **1** | 0 | 0 | 1 | 0 | 0 | **0** |
+| **2** | 0 | 1 | 0 | 0 | 1 | **1** |
+| **3** | 0 | 1 | 1 | 0 | 0 | **0** |
+| **4** | 1 | 0 | 0 | 0 | 1 | **1** |
+| **5** | 1 | 0 | 1 | 0 | 0 | **0** |
+| **6** | 1 | 1 | 0 | 1 | 1 | **1** |
+| **7** | 1 | 1 | 1 | 1 | 0 | **1** |
