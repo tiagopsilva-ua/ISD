@@ -173,3 +173,17 @@ Convertemos cada dígito isoladamente para 4 bits (lembrando que $A = 10$ e $E =
 * $E_{16} = 1110_2$
 
 Juntando tudo, obtemos o resultado final: **$A5E_{16} = 101001011110_2$**.
+
+# Conversões para decimal
+* Para convertermos um numero binario para decimal é muito simples, cada elemento do numero multiplica por 2 elevado ao numero da posição que se encontra contando com o 0 e em seguida somamos os valores obtendo um valor total que é a correspondencia em decimal:
+
+* Por exemplo 110111:
+
+* 1 * 2⁵ = 10
+* 1 * 2⁴ = 8
+* 0 * 2³ = 0
+* 1 * 2² = 4
+* 1 * 2¹ = 2
+* 1 * 2⁰ = 1
+
+* 10 + 8 + 0 + 4 + 2 + 1 = 25
