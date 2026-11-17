@@ -549,3 +549,41 @@ Em sistemas eletromecânicos (como *encoders* de posição, sensores industriais
 * 3.º bit: $1 \text{ (Gray)} \oplus 0 \text{ (Binário anterior)} = \mathbf{1}$
 * 4.º bit: $0 \text{ (Gray)} \oplus 1 \text{ (Binário anterior)} = \mathbf{1}$
 * **Resultado:** $1110_{\text{Gray}}$ corresponde a **$1011_2$** em binário.
+
+# Circuitos Combinacionais
+
+Os **circuitos combinacionais** são circuitos digitais cujas **saídas dependem única e exclusivamente da combinação atual das entradas** num determinado instante. 
+
+Ao contrário dos circuitos sequenciais, **não possuem elementos de memória** (como flip-flops ou latches) nem realimentação (*feedback*), o que significa que não têm capacidade de armazenar estados anteriores.
+
+---
+
+## 1. Características Principais
+
+* **Sem memória:** O passado não afeta o presente; se as entradas forem iguais, a saída será sempre a mesma, independentemente do que aconteceu antes.
+* **Modelo Matemático:** Podem ser integralmente descritos por uma ou mais **tabelas da verdade** ou por **expressões booleanas** simplificadas (muitas vezes otimizadas através de mapas de Karnaugh).
+* **Atraso de Propagação ($T_{pd}$):** Como os sinais precisam de percorrer portas lógicas em série, existe sempre um pequeno atraso temporal desde que as entradas mudam até que a saída estabilize.
+
+---
+
+## 2. Exemplos Comuns de Circuitos Combinacionais
+
+Os blocos lógicos combinacionais mais utilizados em sistemas digitais incluem:
+
+### A. Descodificadores (Decoders)
+* **Função:** Possui $N$ entradas e até $2^N$ saídas. Ativa apenas **uma** saída específica correspondente ao valor binário presente nas entradas.
+* **Exemplo:** Um descodificador de $2 \times 4$ ativa a saída $S_3$ se a entrada for `11`.
+
+### B. Codificadores (Encoders)
+* **Função:** É o inverso do descodificador. Tem $2^N$ entradas (onde apenas uma está ativa de cada vez) e gera uma saída binária de $N$ bits correspondente a essa entrada.
+
+### C. Multiplexadores (MUX)
+* **Função:** Funciona como um "comutador" ou seletor. Tem várias entradas de dados, entradas de seleção (*select lines*) e **uma única saída**. Direciona o sinal de uma das entradas de dados para a saída, dependendo do código selecionado.
+* **Exemplo:** Um MUX de $4$ para $1$ ($4$-to-$1$ MUX) usa $2$ linhas de seleção para escolher qual das $4$ entradas é transmitida para a saída.
+
+### D. Desmultiplexadores (DEMUX)
+* **Função:** Faz o oposto do MUX. Recebe um sinal de entrada e distribui-o por uma de várias saídas possíveis, escolhida através de linhas de seleção.
+
+### E. Somadores (Adders)
+* **Half-Adder (Meio-Somador):** Soma dois bits ($A$ e $B$) e produz duas saídas: a Soma ($S$) e o Transporte de saída ($C_{out}$). Utiliza uma porta XOR para a soma e uma porta AND para o transporte.
+* **Full-Adder (Somador Completo):** Soma dois bits mais um transporte de entrada anterior ($C_{in}$), permitindo encadear vários somadores para criar somadores de vários bits (ex: 4 ou 8 bits).
