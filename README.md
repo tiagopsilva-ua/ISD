@@ -486,3 +486,66 @@ Com Complemento para 2, subtrair dois números resume-se a somar o primeiro com 
   1 0 1 0 0     (o 5.º bit '1' à esquerda é descartado)
 ```
 * Ficamos com os 4 bits: **`0100`** = **$+4_{10}$**.
+
+# Gray Code (Código Gray)
+
+O **Gray Code** (ou código binário refletido) é um sistema de numeração binária onde **dois valores sucessivos diferem em apenas um único bit**. 
+
+Enquanto no binário natural a transição de $7$ (`0111`) para $8$ (`1000`) altera todos os 4 bits em simultâneo, no código Gray apenas 1 bit muda de cada vez.
+
+---
+
+## 1. Porquê que o Código Gray é importante?
+
+Em sistemas eletromecânicos (como *encoders* de posição, sensores industriais ou rodas óticas), se vários bits mudarem exatamente ao mesmo tempo, pequenas diferenças no tempo de comutação (*skew*) podem fazer com que o sistema leia temporariamente um valor totalmente errado. Como no código Gray **só um bit muda de cada vez**, este problema de transição é totalmente eliminado.
+
+---
+
+## 2. Tabela comparativa (Binário vs. Gray de 4 bits)
+
+| Decimal | Binário Natural | Código Gray |
+| :---: | :---: | :---: |
+| **0** | `0000` | `0000` |
+| **1** | `0001` | `0001` |
+| **2** | `0010` | `0011` |
+| **3** | `0011` | `0010` |
+| **4** | `0100` | `0110` |
+| **5** | `0101` | `0111` |
+| **6** | `0110` | `0101` |
+| **7** | `0111` | `0100` |
+| **8** | `1000` | `1100` |
+| **9** | `1001` | `1101` |
+| **10** | `1010` | `1111` |
+| **11** | `1011` | `1110` |
+| **12** | `1100` | `1010` |
+| **13** | `1101` | `1011` |
+| **14** | `1110` | `1001` |
+| **15** | `1111` | `1000` |
+
+---
+
+## 3. Como converter de Binário para Gray
+
+1. O **bit mais à esquerda (MSB)** do código Gray é exatamente igual ao MSB do binário.
+2. Para encontrar os bits seguintes, fazemos a operação **XOR exclusivo** ($\oplus$) entre o bit atual do binário e o bit anterior do binário.
+
+### Exemplo: Converter o binário $1011_2$ para Gray
+* 1.º bit (mais à esquerda): mantém-se $\rightarrow$ **`1`**
+* 2.º bit: $1 \oplus 0 = \mathbf{1}$
+* 3.º bit: $0 \oplus 1 = \mathbf{1}$
+* 4.º bit: $1 \oplus 1 = \mathbf{0}$
+* **Resultado:** $1011_2$ em binário corresponde a **$1110_{\text{Gray}}$**.
+
+---
+
+## 4. Como converter de Gray para Binário
+
+1. O **bit mais à esquerda (MSB)** mantém-se igual.
+2. Para os bits seguintes, fazemos a operação **XOR** entre o bit do Gray atual e o **bit do resultado binário já calculado** na posição anterior.
+
+### Exemplo: Converter o código Gray $1110_{\text{Gray}}$ para Binário
+* 1.º bit: mantém-se $\rightarrow$ **`1`**
+* 2.º bit: $1 \text{ (Gray)} \oplus 1 \text{ (Binário anterior)} = \mathbf{0}$
+* 3.º bit: $1 \text{ (Gray)} \oplus 0 \text{ (Binário anterior)} = \mathbf{1}$
+* 4.º bit: $0 \text{ (Gray)} \oplus 1 \text{ (Binário anterior)} = \mathbf{1}$
+* **Resultado:** $1110_{\text{Gray}}$ corresponde a **$1011_2$** em binário.
