@@ -174,16 +174,31 @@ Convertemos cada dígito isoladamente para 4 bits (lembrando que $A = 10$ e $E =
 
 Juntando tudo, obtemos o resultado final: **$A5E_{16} = 101001011110_2$**.
 
-# Conversões para decimal
-* Para convertermos um numero binario para decimal é muito simples, cada elemento do numero multiplica por 2 elevado ao numero da posição que se encontra contando com o 0 e em seguida somamos os valores obtendo um valor total que é a correspondencia em decimal:
+# Conversão de Binário para Decimal
 
-* Por exemplo 110111:
+Para convertermos um número binário para decimal, multiplicamos cada bit do número por $2$ elevado à respetiva posição (começando em $0$ da direita para a esquerda) e, em seguida, somamos todos os valores obtidos.
 
-* 1 * 2⁵ = 10
-* 1 * 2⁴ = 8
-* 0 * 2³ = 0
-* 1 * 2² = 4
-* 1 * 2¹ = 2
-* 1 * 2⁰ = 1
+### Exemplo prático: Converter o binário $110111_2$ para Decimal
 
-* 10 + 8 + 0 + 4 + 2 + 1 = 25
+* $1 \times 2^5 = 1 \times 32 = 32$
+* $1 \times 2^4 = 1 \times 16 = 16$
+* $0 \times 2^3 = 0 \times 8 = 0$
+* $1 \times 2^2 = 1 \times 4 = 4$
+* $1 \times 2^1 = 1 \times 2 = 2$
+* $1 \times 2^0 = 1 \times 1 = 1$
+
+Somando todas as parcelas: $32 + 16 + 0 + 4 + 2 + 1 = \mathbf{55_{10}}$
+
+# Conversão de Octal para Decimal
+
+Para convertermos um número octal para decimal, multiplicamos cada dígito do número por $8$ elevado à respetiva posição (começando em $0$ da direita para a esquerda) e, em seguida, somamos todos os valores obtidos.
+
+### Exemplo prático: Converter o octal $16532_8$ para Decimal
+
+* $1 \times 8^4 = 1 \times 4096 = 4096$
+* $6 \times 8^3 = 6 \times 512 = 3072$
+* $5 \times 8^2 = 5 \times 64 = 320$
+* $3 \times 8^1 = 3 \times 8 = 24$
+* $2 \times 8^0 = 2 \times 1 = 2$
+
+Somando todas as parcelas: $4096 + 3072 + 320 + 24 + 2 = \mathbf{7514_{10}}$
