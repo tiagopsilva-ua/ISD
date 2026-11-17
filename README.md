@@ -861,3 +861,298 @@ Considera uma função $F(A, B, C)$ que tem saída **`1`** apenas nas linhas **1
 * **Em Produto de Maxterms (POS):**
   $$F(A, B, C) = \prod M(0, 2, 3, 5, 6) = M_0 \cdot M_2 \cdot M_3 \cdot M_5 \cdot M_6$$
   $$F(A, B, C) = (A+B+C) \cdot (A+B'+C) \cdot (A+B'+C') \cdot (A'+B+C') \cdot (A'+B'+C)$$
+
+# Combinational Circuit Analysis (Análise de Circuitos Combinacionais)
+
+A **análise de um circuito combinacional** consiste no processo inverso ao projeto (*design*): partimos de um **diagrama lógico já construído** (esquema de portas lógicas) e determinamos qual é a sua **função booleana** e a sua **Tabela da Verdade**, de modo a compreender exatamente o que o circuito faz.
+
+---
+
+## 1. Passos para Analisar um Circuito
+
+Para analisar qualquer circuito combinacional de forma sistemática, seguimos 4 etapas:
+
+1. **Verificar se é combinacional:** Garantir que o circuito não tem elementos de memória (flip-flops) nem ciclos de realimentação (*feedback* de uma saída de volta para uma entrada anterior).
+2. **Identificar as entradas e saídas:** Atribuir nomes a todas as entradas primárias (ex: $A, B, C$) e às saídas finais (ex: $F$ ou $Y$).
+3. **Etiquetar os nós intermédios (Níveis Lógicos):** Avançar da esquerda (entradas) para a direita (saídas), escrevendo a expressão booleana à saída de cada porta lógica (ex: $T_1, T_2, T_3...$).
+4. **Obter a expressão final e a Tabela da Verdade:** Substituir as expressões intermédias até obter a equação da saída apenas em função das entradas primárias. Se necessário, simplificar algebricamente e construir a tabela da verdade correspondente.
+
+---
+
+## 2. Exemplo Prático Passo a Passo
+
+Imagina um circuito com três entradas ($A, B, C$) e uma saída ($F$), composto por:
+* Uma porta **AND** que recebe $A$ e $B$ (saída $T_1$).
+* Uma porta **NOT** que recebe $C$ (saída $T_2$).
+* Uma porta **OR** que recebe $B$ e $T_2$ (saída $T_3$).
+* Uma porta **AND** final que recebe $T_1$ e $T_3$ para gerar a saída **$F$**.
+
+### Passo 1: Escrever as expressões por níveis
+* **Nível 1 (portas ligadas diretamente às entradas):**
+  * $T_1 = A \cdot B$
+  * $T_2 = C'$
+* **Nível 2:**
+  * $T_3 = B + T_2 = B + C'$
+* **Nível 3 (Saída final):**
+  * $F = T_1 \cdot T_3$
+
+### Passo 2: Substituir e Simplificar a Expressão Final
+Substituímos $T_1$ e $T_3$ na equação de $F$:
+$$F = (A \cdot B) \cdot (B + C')$$
+
+Aplicando a propriedade distributiva e as leis da Álgebra de Boole:
+$$F = (A \cdot B \cdot B) + (A \cdot B \cdot C')$$
+$$F = (A \cdot B) + (A \cdot B \cdot C') \quad \text{(Idempotência: } B \cdot B = B\text{)}$$
+$$F = A \cdot B \quad \text{(Lei da Absorção: } X + X \cdot Y = X\text{)}$$
+
+> **Conclusão da Análise:** Apesar de o circuito original usar 4 portas lógicas e depender da entrada $C$, a análise revela que a entrada $C$ é redundante e o circuito comporta-se exatamente como uma simples porta **AND** entre $A$ e $B$ ($F = A \cdot B$).
+
+---
+
+## 3. Tabela da Verdade Resultante
+
+| A | B | C | $T_1 = A \cdot B$ | $T_3 = B + C'$ | **F = $T_1 \cdot T_3$** |
+| :---: | :---: | :---: | :---: | :---: | :---: |
+| 0 | 0 | 0 | 0 | 1 | **0** |
+| 0 | 0 | 1 | 0 | 0 | **0** |
+| 0 | 1 | 0 | 0 | 1 | **0** |
+| 0 | 1 | 1 | 0 | 1 | **0** |
+| 1 | 0 | 0 | 0 | 1 | **0** |
+| 1 | 0 | 1 | 0 | 0 | **0** |
+| 1 | 1 | 0 | 1 | 1 | **1** |
+| 1 | 1 | 1 | 1 | 1 | **1** |
+
+# Karnaugh Maps (Mapas de Karnaugh / Mapas K)
+
+Os **Mapas de Karnaugh** (ou **Mapas K**) são uma ferramenta gráfica utilizada para simplificar expressões booleanas e otimizar circuitos combinacionais de forma visual, sem a necessidade de aplicar sucessivamente as leis algébricas (evitando erros e termos complexos).
+
+---
+
+## 1. Como funciona um Mapa de Karnaugh?
+
+Um mapa K é uma representação em grelha da Tabela da Verdade, organizada de forma que **cada célula adjacente difere em apenas um único bit** (utilizando a propriedade do Código Gray). 
+
+* Agrupando células adjacentes que contêm o valor **`1`** (em potências de 2: grupos de $1, 2, 4, 8, 16...$), conseguimos eliminar variáveis que mudam de estado, obtendo a expressão lógica mais simplificada na forma de **Soma de Produtos (SOP)**.
+
+---
+
+## 2. Dimensões dos Mapas K (por número de variáveis)
+
+* **2 Variáveis ($2^2 = 4$ células):** Organizado numa grelha de $2 \times 2$.
+* **3 Variáveis ($2^3 = 8$ células):** Organizado numa grelha de $2 \times 4$ (as colunas usam o código Gray: `00, 01, 11, 10`).
+* **4 Variáveis ($2^4 = 16$ células):** Organizado numa grelha de $4 \times 4$ (linhas e colunas em código Gray: `00, 01, 11, 10`).
+
+---
+
+## 3. Exemplo Prático: Simplificação com um Mapa K de 3 Variáveis ($A, B, C$)
+
+Imagine a função $F(A, B, C) = \sum m(0, 2, 4, 6)$ (saídas `1` nas linhas correspondentes aos minterms 0, 2, 4 e 6).
+
+### Construção do Mapa K:
+As linhas representam $A$ (`0` ou `1`) e as colunas representam $BC$ (`00, 01, 11, 10` em código Gray):
+
+| $A \backslash BC$ | `00` ($B'C'$) | `01` ($B'C$) | `11` ($BC$) | `10` ($BC'$) |
+| :---: | :---: | :---: | :---: | :---: |
+| **`0`** | **1** ($m_0$) | 0 ($m_1$) | 0 ($m_3$) | **1** ($m_2$) |
+| **`1`** | **1** ($m_4$) | 0 ($m_5$) | 0 ($m_7$) | **1** ($m_6$) |
+
+### Agrupamento (*Grouping*):
+1. No mapa, temos quatro `1`s nas colunas das pontas (`00` e `10`), formando um retângulo vertical de 4 células adjacentes (podemos "enrolar" o mapa da esquerda para a direita, pois as extremidades são adjacentes).
+2. Ao abranger todas as linhas de $A$ ($0$ e $1$), a variável $A$ é eliminada.
+3. Olhando para as colunas, o único fator comum a essas quatro células é o facto de **$C = 0$** (ou seja, $C'$).
+
+### Resultado Simplificado:
+$$F(A, B, C) = C'$$
+*(Um circuito que exigiria portas complexas reduz-se apenas a um inversor na entrada $C$!)*
+
+---
+
+## 4. Regras de Ouro para Agrupar no Mapa K
+
+1. **Maximizar os grupos:** Os grupos devem ser o maior possível (tentar agrupar blocos de $8, 4, 2$ ou $1$ células). Quanto maior o grupo, mais variáveis são eliminadas e mais simples fica o termo.
+2. **Potências de 2:** O número de células num grupo tem de ser obrigatoriamente uma potência de $2$ ($1, 2, 4, 8, 16$).
+3. **Enrolar os extremos:** As extremidades do mapa (esquerda/direita e cima/baixo) ligam-se entre si como se fossem um cilindro ou toro. Podes fazer grupos cruzando as bordas.
+4. **Sobreposição permitida:** Uma célula com `1` pode (e deve, se necessário) pertencer a vários grupos para garantir que formamos os maiores agrupamentos possíveis.
+5. **Minimizar o número de grupos:** Usa o menor número de grupos possível para cobrir todos os `1`s.
+
+# Karnaugh Maps for 3 Variables (Mapas de Karnaugh de 3 Variáveis)
+
+Para funções lógicas com **três variáveis** (por exemplo, $A, B, C$), a Tabela da Verdade tem $2^3 = 8$ linhas. O Mapa de Karnaugh correspondente é uma grelha bidimensional com **8 células**, habitualmente organizada numa estrutura de $2 \times 4$ (2 linhas por 4 colunas).
+
+---
+
+## 1. Estrutura e Organização do Mapa ($2 \times 4$)
+
+Para garantir a regra de adjacência (onde cada célula difere apenas em 1 bit), as colunas utilizam o **Código Gray** (`00, 01, 11, 10`), enquanto a linha utiliza o binário natural (`0` e `1`).
+
+* **Variáveis:** $A$ (linhas: `0` para $A'$, `1` para $A$) e $BC$ (colunas: $B'C', B'C, BC, BC'$).
+
+| $A \backslash BC$ | `00` ($B'C'$) | `01` ($B'C$) | `11` ($BC$) | `10` ($BC'$) |
+| :---: | :---: | :---: | :---: | :---: |
+| **`0` ($A'$)** | $m_0$ ($A'B'C'$) | $m_1$ ($A'B'C$) | $m_3$ ($A'BC$) | $m_2$ ($A'BC'$) |
+| **`1` ($A$)** | $m_4$ ($AB'C'$) | $m_5$ ($AB'C$) | $m_7$ ($ABC$) | $m_6$ ($ABC'$) |
+
+> **Atenção à ordem das colunas:** Repara que a sequência é `00`, `01`, `11`, `10` (e não `10`, `11`). Isto é crucial para que as colunas das extremidades (`00` e `10`) sejam consideradas adjacentes entre si ("enrolamento" do mapa).
+
+---
+
+## 2. Passo a Passo para Resolver com um Mapa de 3 Variáveis
+
+1. **Preencher o Mapa:** Coloca `1` nas células cujos minterms correspondem às linhas da Tabela da Verdade onde a função é verdadeira ($F = 1$). Coloca `0` nas restantes (ou deixa em branco).
+2. **Formar Grupos (Agrupamentos):** 
+   * Agrupa os `1`s em blocos cujos tamanhos sejam potências de 2: **4 células** (quartetos) ou **2 células** (pares), ou até um `1` isolado se não tiver adjacências.
+   * Cria o menor número de grupos possível, garantindo que cobres todos os `1`s. Lembra-te que podes cruzar as colunas das pontas (a coluna `00` liga-se à coluna `10`).
+3. **Extrair a Expressão Simplificada:**
+   * Para cada grupo, observa quais as variáveis que **não mudam de estado** (mantêm o valor $0$ ou $1$) entre as células do grupo.
+   * As variáveis que mudam de valor são eliminadas. Escreve a soma de produtos final.
+
+---
+
+## 3. Exemplo Prático Completo
+
+Considera a função booleana dada pela soma de minterms:
+$$F(A, B, C) = \sum m(0, 1, 4, 5)$$
+
+### Passo A: Preenchimento do Mapa K
+* Colocamos `1` nas posições $m_0$ (`000`), $m_1$ (`001`), $m_4$ (`100`) e $m_5$ (`101`).
+
+| $A \backslash BC$ | `00` ($B'C'$) | `01` ($B'C$) | `11` ($BC$) | `10` ($BC'$) |
+| :---: | :---: | :---: | :---: | :---: |
+| **`0` ($A'$)** | **1** ($m_0$) | **1** ($m_1$) | 0 ($m_3$) | 0 ($m_2$) |
+| **`1` ($A$)** | **1** ($m_4$) | **1** ($m_5$) | 0 ($m_7$) | 0 ($m_6$) |
+
+### Passo B: Agrupamento
+* Os quatro `1`s formam um **bloco rectangular de 4 células** (um quadrado perfeito no lado esquerdo do mapa, abrangendo as colunas `00` e `01` para ambas as linhas $A=0$ e $A=1$).
+
+### Passo C: Leitura do Resultado
+* **Variável $A$:** Como o grupo ocupa tanto a linha $0$ ($A=0$) como a linha $1$ ($A=1$), a variável $A$ muda de estado e é **eliminada**.
+* **Variável $B$:** Em ambas as colunas do grupo (`00` e `01`), o bit $B$ é sempre `0`. Logo, mantém-se como **$B'$**.
+* **Variável $C$:** Na coluna `00`, $C=0$; na coluna `01`, $C=1$. Como $C$ muda de valor, é **eliminada**.
+
+* **Expressão Simplificada Final:**
+  $$F(A, B, C) = B'$$
+
+  # Karnaugh Maps for 4 Variables (Mapas de Karnaugh de 4 Variáveis)
+
+Para funções lógicas com **quatro variáveis** (por exemplo, $A, B, C, D$), a Tabela da Verdade tem $2^4 = 16$ linhas. O Mapa de Karnaugh correspondente é uma grelha de **16 células**, estruturada num formato de $4 \times 4$ (4 linhas e 4 colunas).
+
+---
+
+## 1. Estrutura e Organização do Mapa ($4 \times 4$)
+
+Tanto as linhas ($AB$) como as colunas ($CD$) utilizam o **Código Gray** (`00, 01, 11, 10`) para garantir que células adjacentes diferem em apenas um único bit.
+
+| $AB \backslash CD$ | `00` ($C'D'$) | `01` ($C'D$) | `11` ($CD$) | `10` ($CD'$)|
+| :---: | :---: | :---: | :---: | :---: |
+| **`00` ($A'B'$)** | $m_0$ | $m_1$ | $m_3$ | $m_2$ |
+| **`01` ($A'B$)** | $m_4$ | $m_5$ | $m_7$ | $m_6$ |
+| **`11` ($AB$)** | $m_{12}$ | $m_{13}$ | $m_{15}$ | $m_{14}$ |
+| **`10` ($AB'$)** | $m_8$ | $m_9$ | $m_{11}$ | $m_{10}$ |
+
+> **Nota de Atenção sobre a Ordem:** Repara que as linhas seguem a ordem `00, 01, 11, 10` (e o mesmo para as colunas). Isto significa que a primeira linha (`00`) é adjacente à última linha (`10`), e a primeira coluna (`00`) é adjacente à última coluna (`10`). O mapa comporta-se como um toro (uma superfície esférica onde os extremos se ligam).
+
+---
+
+## 2. Passo a Passo para Resolver com um Mapa de 4 Variáveis
+
+1. **Preencher o Mapa:** Coloca `1` nas células correspondentes aos minterms onde a função é verdadeira ($F = 1$).
+2. **Formar Grupos (Agrupamentos):**
+   * Agrupa os `1`s em blocos de potências de 2: **16, 8, 4, 2 ou 1** células.
+   * **Enrolamento Total:** Lembra-te que as extremidades esquerda e direita ligam-se, e as extremidades superior e inferior também se ligam. Podes formar grupos de 4 ou 8 células cruzando os quatro cantos do mapa ou as bordas opostas.
+3. **Extrair a Expressão Simplificada:** Para cada grupo, identifica quais as variáveis que mantêm o mesmo valor (não mudam) e elimina as que mudam.
+
+---
+
+## 3. Exemplo Prático Completo
+
+Considera a função dada pela soma de minterms:
+$$F(A, B, C, D) = \sum m(0, 2, 5, 7, 8, 10, 13, 15)$$
+
+### Passo A: Preenchimento do Mapa K
+Colocamos `1` nas posições correspondentes aos minterms indicados:
+
+| $AB \backslash CD$ | `00` | `01` | `11` | `10` |
+| :---: | :---: | :---: | :---: | :---: |
+| **`00`** | **1** ($m_0$) | 0 ($m_1$) | 0 ($m_3$) | **1** ($m_2$) |
+| **`01`** | 0 ($m_4$) | **1** ($m_5$) | **1** ($m_7$) | 0 ($m_6$) |
+| **`11`** | 0 ($m_{12}$)| 0 ($m_{13}$)| 0 ($m_{15}$)| 0 ($m_{14}$)|
+| **`10`** | **1** ($m_8$) | 0 ($m_9$) | 0 ($m_{11}$)| **1** ($m_{10}$)|
+
+*(Espere, vamos ajustar os minterms para formar um exemplo visualmente perfeito de cantos/bordas: $m_0, m_2, m_8, m_{10}$ formam exatamente os 4 cantos do mapa!)*
+
+Se isolarmos os **cantos** ($m_0, m_2, m_8, m_{10}$):
+* Linhas dos cantos: `00` e `10`. O $A$ muda (de $0$ para $1$), logo é eliminado; o $B$ é sempre `0` ($B'$).
+* Colunas dos cantos: `00` e `10`. O $C$ muda, logo é eliminado; o $D$ é sempre `0
+
+# Karnaugh Maps for 5 Variables (Mapas de Karnaugh de 5 Variáveis)
+
+Para funções lógicas com **cinco variáveis** (por exemplo, $A, B, C, D, E$), a Tabela da Verdade tem $2^5 = 32$ linhas. Como uma grelha bidimensional normal se tornaria demasiado complexa, o método padrão consiste em utilizar **dois mapas de 4 variáveis (de 16 células cada)** colocados lado a lado ou sobrepostos.
+
+---
+
+## 1. Como funciona a estrutura de 5 Variáveis
+
+* **Divisão:** O mapa de 32 células é dividido em duas metades (duas "fatias" ou planos de 16 células):
+  * **Mapa 1:** Corresponde ao caso em que a 5.º variável é **`0`** (ex: $A'$).
+  * **Mapa 2:** Corresponde ao caso em que a 5.º variável é **`1`** (ex: $A$).
+* **Adjacência Tridimensional (3D):** Além das adjacências normais dentro de cada mapa de 16 células (linhas e colunas), **duas células que ocupam exatamente a mesma posição nos dois mapas são consideradas adjacentes** entre si.
+
+---
+
+## 2. Passo a Passo para Resolver com 5 Variáveis
+
+1. **Dividir os Minterms:** 
+   * Os minterms de $0$ a $15$ ($m_0$ a $m_{15}$) vão para o mapa onde $A = 0$.
+   * Os minterms de $16$ a $31$ ($m_{16}$ a $m_{31}$) vão para o mapa onde $A = 1$.
+2. **Preencher os dois Mapas:** Coloca `1` nas células correspondentes em cada um dos mapas ($A=0$ e $A=1$).
+3. **Formar Grupos (2D e 3D):**
+   * **Grupos intra-mapa:** Procura grupos normais de $1, 2, 4, 8$ ou $16$ células *dentro* do mesmo mapa.
+   * **Grupos inter-mapa (sobrepostos):** Procura células com `1` na **mesma posição exata** em ambos os mapas ($A=0$ e $A=1$). Juntando as duas metades, consegues formar grupos 3D (por exemplo, um grupo de 4 células num mapa pode juntar-se ao grupo idêntico no outro mapa, duplicando o tamanho para um bloco de 8 células e eliminando a variável $A$).
+4. **Extrair a Expressão:** As regras de eliminação mantêm-se: sempre que um grupo se estende por ambos os mapas, a variável que distingue os mapas ($A$) é eliminada.
+
+---
+
+## 3. Exemplo Conceptual de Agrupamento 3D
+
+Se tiveres um `1` na posição $m_2$ ($AB'C'D'E' \rightarrow$ no mapa $A=0$) e outro `1` na posição $m_{18}$ ($AB'C'D'E \rightarrow$ no mapa $A=1$):
+* Os dois `1`s estão exatamente na mesma célula ($B'C'D'$) em ambos os mapas.
+* Ao agrupá-los, formas um par de células 3D.
+* **Eliminação:** A variável $A$ muda ($0$ e $1$), logo é eliminada. As restantes variáveis que não mudam de estado formam o termo simplificado correspondente.
+
+# Irrelevant Input Conditions (Don’t Cares / Condições Indiferentes)
+
+As **condições indiferentes** (frequentemente chamadas de **Don't Cares** e representadas por $d$ ou $\times$) correspondem a combinações de entradas que **nunca ocorrem na prática** num determinado sistema, ou cujos valores de **saída não interessam** para o funcionamento correto do circuito.
+
+---
+
+## 1. Porque é que os "Don't Cares" são úteis?
+
+Quando projetamos um circuito digital, saber que certas combinações de entrada nunca vão acontecer (ou que a saída tanto faz ser `0` ou `1`) dá-nos **liberdade de otimização**. 
+
+Podemos tratar esses valores como `1` ou como `0` no Mapa de Karnaugh, escolhendo a opção que nos permitir **formar os maiores agrupamentos possíveis**, resultando em expressões booleanas ainda mais simples e com menos portas lógicas.
+
+---
+
+## 2. Regras para usar Don't Cares nos Mapas de Karnaugh
+
+1. **Tratar como `1` quando ajuda:** Se um `d` estiver numa posição adjacente que ajude a formar um grupo maior (de 2, 4 ou 8 células) com os `1`s reais da função, assumimos o seu valor como **`1`**.
+2. **Tratar como `0` quando não ajuda:** Se um `d` não trouxer nenhuma vantagem para criar grupos maiores, tratamo-lo como **`0`** (ignorando-o completamente).
+3. **Nunca isolar Don't Cares:** Nunca crias um grupo constituído *apenas* por Don't Cares. Eles servem apenas para "esticar" os grupos de `1`s já existentes.
+
+---
+
+## 3. Notação Matemática
+
+Nas funções booleanas, os Don't Cares são normalmente indicados pela letra $d$ (ou $\sum d$) somados aos minterms:
+$$F(A, B, C, D) = \sum m(1, 3, 7) + d(9, 11, 15)$$
+* Significa que a função vale `1` nos minterms 1, 3 e 7, e é indiferente (`d`) nos minterms 9, 11 e 15.
+
+---
+
+## 4. Exemplo Prático: Detetor de Dígitos BCD Inválidos
+
+O código **BCD 8421** utiliza 4 bits para representar os algarismos decimais de `0` (`0000`) a `9` (`1001`). No entanto, com 4 bits conseguimos representar 16 valores (até `1111`). As combinações de `10` (`1010`) a `15` (`1111`) **nunca ocorrem** num número BCD válido.
+
+Se quisermos detetar quando ocorre um erro (um valor inválido de BCD):
+* As saídas para as combinações de `0` a `9` devem ser **`0`** (números válidos).
+* As combinações de `10` a `15` são **Don't Cares (`d`)** para o projetista se o sistema garantir que nunca entram valores inválidos, ou podem ser tratadas consoante a especificação. Se forem usadas como `d`, permitem simplificar drasticamente a lógica do detetor de erros no Mapa K.
