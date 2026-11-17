@@ -202,3 +202,15 @@ Para convertermos um número octal para decimal, multiplicamos cada dígito do n
 * $2 \times 8^0 = 2 \times 1 = 2$
 
 Somando todas as parcelas: $4096 + 3072 + 320 + 24 + 2 = \mathbf{7514_{10}}$
+# Conversão de Hexadecimal para Decimal
+
+Para convertermos um número hexadecimal para decimal, multiplicamos cada dígito do número por $16$ elevado à respetiva posição (começando em $0$ da direita para a esquerda) e, em seguida, somamos todos os valores obtidos (lembrando que $A=10, B=11, C=12, D=13, E=14, F=15$).
+
+### Exemplo prático: Converter o hexadecimal $ABE5_{16}$ para Decimal
+
+* $A \times 16^3 = 10 \times 4096 = 40960$
+* $B \times 16^2 = 11 \times 256 = 2816$
+* $E \times 16^1 = 14 \times 16 = 224$
+* $5 \times 16^0 = 5 \times 1 = 5$
+
+Somando todas as parcelas: $40960 + 2816 + 224 + 5 = \mathbf{44005_{10}}$
