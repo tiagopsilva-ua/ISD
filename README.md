@@ -587,3 +587,61 @@ Os blocos lógicos combinacionais mais utilizados em sistemas digitais incluem:
 ### E. Somadores (Adders)
 * **Half-Adder (Meio-Somador):** Soma dois bits ($A$ e $B$) e produz duas saídas: a Soma ($S$) e o Transporte de saída ($C_{out}$). Utiliza uma porta XOR para a soma e uma porta AND para o transporte.
 * **Full-Adder (Somador Completo):** Soma dois bits mais um transporte de entrada anterior ($C_{in}$), permitindo encadear vários somadores para criar somadores de vários bits (ex: 4 ou 8 bits).
+
+# Axiomas e Leis da Álgebra de Boole
+
+A **Álgebra de Boole** é a estrutura matemática que suporta a lógica digital. Os axiomas, leis e propriedades seguintes são utilizados para analisar, simplificar e otimizar expressões lógicas e circuitos combinacionais.
+
+---
+
+## 1. Postulados Básicos (Axiomas)
+Considerando variáveis binárias ($A, B, C \in \{0, 1\}$):
+
+* **Identidade:**
+  * $A \cdot 1 = A$
+  * $A + 0 = A$
+
+* **Anulação (ou Domínio):**
+  * $A \cdot 0 = 0$
+  * $A + 1 = 1$
+
+* **Idempotência:**
+  * $A \cdot A = A$
+  * $A + A = A$
+
+* **Complementaridade (ou Inversão):**
+  * $A \cdot A' = 0$
+  * $A + A' = 1$
+
+* **Involução (Dupla Negação):**
+  * $(A')' = A$
+
+---
+
+## 2. Propriedades e Leis Fundamentais
+
+* **Propriedade Comutativa:**
+  * $A + B = B + A$
+  * $A \cdot B = B \cdot A$
+
+* **Propriedade Associativa:**
+  * $(A + B) + C = A + (B + C)$
+  * $(A \cdot B) \cdot C = A \cdot (B \cdot C)$
+
+* **Propriedade Distributiva:**
+  * $A \cdot (B + C) = (A \cdot B) + (A \cdot C)$
+  * $A + (B \cdot C) = (A + B) \cdot (A + C)$ *(Nota: esta segunda lei é específica da Álgebra de Boole e não existe na álgebra comum).*
+
+---
+
+## 3. Leis de Simplificação Avançada
+
+* **Lei da Absorção:**
+  * $A + (A \cdot B) = A$
+  * $A \cdot (A + B) = A$
+  * $A + (A' \cdot B) = A + B$
+  * $A \cdot (A' + B) = A \cdot B$
+
+* **Teoremas de De Morgan (Essenciais para conversão de portas):**
+  * $\overline{A \cdot B} = A' + B'$ *(A NAND é equivalente a uma OR de entradas invertidas)*
+  * $\overline{A + B} = A' \cdot B'$ *(A NOR é equivalente a uma AND de entradas invertidas)*
