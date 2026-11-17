@@ -214,7 +214,21 @@ Para convertermos um número hexadecimal para decimal, multiplicamos cada dígit
 * $5 \times 16^0 = 5 \times 1 = 5$
 
 Somando todas as parcelas: $40960 + 2816 + 224 + 5 = \mathbf{44005_{10}}$
+---
+# O que é o BCD 8421
 
+* O **BCD** (*Binary-Coded Decimal*) é um código utilizado em sistemas digitais para representar números decimais (de 0 a 9) usando grupos de **4 bits**.
+* A designação **8421** refere-se aos pesos atribuídos a cada uma das 4 posições do bit, da esquerda para a direita ($2^3 = 8, 2^2 = 4, 2^1 = 2, 2^0 = 1$), exatamente igual aos pesos do código binário natural.
+
+### Como é que funciona?
+
+No sistema BCD, **cada dígito decimal individual** (de 0 a 9) é convertido em separado para o seu grupo de 4 bits correspondente. 
+
+Por exemplo, para o número decimal **$25_{10}$**, convertemos cada algarismo isoladamente:
+* $2_{10} = 0010_2$
+* $5_{10} = 0101_2$
+
+Juntando tudo: **$25_{10} = 0010 \, 0101_{\text{BCD}}$**.
 ---
 # Operações com Números Binários
 
@@ -259,3 +273,22 @@ A subtração de bits segue estas regras:
 ```
 *(Nota no bit menos significativo: $0 - 1$ pede emprestado $1$ ao vizinho, ficando $10_2 - 1_2 = 1$).*
 
+# Overflow (Estouro)
+
+Um **overflow** acontece quando o resultado de uma operação aritmética excede o número máximo de bits que o sistema tem capacidade para armazenar.
+
+### Como funciona:
+
+Caso estejamos a trabalhar com um sistema de **4 bits**, o maior número sem sinal que conseguimos representar é o $15$ ($1111_2$).
+
+Se somarmos $9$ e $8$:
+* $9_{10} = 1001_2$
+* $8_{10} = 1000_2$
+
+Se fizermos a soma binária:
+```text
+    1 0 0 1   (9)
++   1 0 0 0   (8)
+------------
+  1 0 0 0 1   (17)
+```
