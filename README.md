@@ -106,3 +106,32 @@ Para convertermos um número decimal para binário, dividimos o número por 2 fa
 * $1 \div 2 = 0$ (com resto **1** $\rightarrow$ primeiro dígito)
 
 Lendo os restos da última divisão para a primeira, obtemos o código binario completo: **$25_{10} = 11001_2$**.
+
+# Conversão de Decimal para Hexadecimal
+
+Para convertermos um número decimal para hexadecimal, dividimos o número por 16 fazendo sempre uma divisão inteira. O resto indica o dígito correspondente (lembrando que de 10 a 15 usamos as letras A, B, C, D, E, F), sendo que o número se lê da **última divisão para a primeira** (de baixo para cima).
+
+### Exemplo prático: Converter o número 25 para Hexadecimal
+
+* $25 \div 16 = 1$ (com resto **9**)
+* $1 \div 16 = 0$ (com resto **1**)
+
+Lendo os restos da última divisão para a primeira, obtemos: **$25_{10} = 19_{16}$**.
+
+# Conversão de Binário para Octal
+
+Para converter de binário para octal, começamos por separar os bits do número binário em **grupos de 3 dígitos**, da direita para a esquerda. 
+
+Se o número de bits à esquerda não for múltiplo de 3, adicionamos zeros à esquerda até completar o grupo. Em seguida, basta converter cada grupo de 3 bits para o seu valor correspondente em decimal/octal.
+
+### Exemplo prático: Converter o binário $11101011_2$ para Octal
+
+1. **Agrupar de 3 em 3 da direita para a esquerda** (e adicionar zeros à esquerda se necessário):
+   * $011 \quad 101 \quad 011$
+
+2. **Converter cada grupo isoladamente**:
+   * $011_2 = 3_8$
+   * $101_2 = 5_8$
+   * $011_2 = 3_8$
+
+Juntando os dígitos, obtemos o resultado final: **$011101011_2 = 353_8$**.
