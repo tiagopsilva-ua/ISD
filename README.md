@@ -329,3 +329,42 @@ Sempre que a soma de uma coluna atinge **$16$ ou mais**, subtraímos $16$ ao res
 * **Coluna da direita:** $9 + 8 = 17$. Como $17 \ge 16$, fazemos $17 - 16 = \mathbf{1}$ e transportamos **$1$** para a coluna seguinte.
 * **Coluna da esquerda:** $3 + 5 + 1 \text{ (transportado)} = \mathbf{9}$.
 * **Resultado final:** **$91_{16}$**.
+# Subtração em Octal e Hexadecimal
+
+A subtração em bases diferentes da decimal funciona com o mesmo princípio do "empréstimo" (*borrow*), mas com uma regra fundamental: quando pedimos emprestado à coluna da esquerda, **o valor que trazemos para a coluna atual é igual à base** em que estamos a trabalhar ($8$ para octal e $16$ para hexadecimal).
+
+---
+
+## 1. Subtração em Octal (Base 8)
+
+Se o minuendo for menor que o subtraendo numa coluna, pedimos emprestado **$8$** unidades à coluna seguinte.
+
+### Exemplo prático: $53_8 - 25_8$
+```text
+      4  (11)  (novos valores após empréstimo)
+      5   3  8
+-     2   5  8
+------------
+      2   6  8
+```
+* **Coluna da direita:** $3 - 5$ não é possível. Pedimos emprestado $1$ à coluna das dezenas (o $5$ passa a $4$), e somamos a base ($8$) ao $3$, ficando $3 + 8 = 11$. Agora subtraímos: $11 - 5 = \mathbf{6}$.
+* **Coluna da esquerda:** Com o empréstimo, ficamos com $4 - 2 = \mathbf{2}$.
+* **Resultado final:** **$26_8$**.
+
+---
+
+## 2. Subtração em Hexadecimal (Base 16)
+
+Se o minuendo for menor que o subtraendo numa coluna, pedimos emprestado **$16$** unidades à coluna seguinte (lembrando que letras representam valores decimais: $A=10, B=11, C=12, D=13, E=14, F=15$).
+
+### Exemplo prático: $52_{16} - 18_{16}$
+```text
+      4  (18)  (novos valores após empréstimo)
+      5   2  16
+-     1   8  16
+------------
+      3   A  16
+```
+* **Coluna da direita:** $2 - 8$ não é possível. Pedimos emprestado $1$ ao $5$ (que passa a $4$), e somamos a base ($16$) ao $2$, ficando $2 + 16 = 18$. Agora subtraímos: $18 - 8 = \mathbf{10}$. Como $10$ em hexadecimal é a letra **$\text{A}$**, colocamos $\mathbf{A}$.
+* **Coluna da esquerda:** $4 - 1 = \mathbf{3}$.
+* **Resultado final:** **$3A_{16}$**.
