@@ -289,3 +289,43 @@ Se fizermos a soma binária:
 O resultado correto é $17$, mas o nosso registador só tem **4 bits** de espaço. Logo, o quinto bit gerado à esquerda "salta fora" e o computador fica apenas com os quatro bits menos significativos (`0001`), que representam o valor **$1$**. 
 
 Ou seja, devido ao overflow, o sistema fica a achar que **$8 + 9 = 1$**!
+
+# Operações com Números Octais e Hexadecimais
+
+Para adicionar ou subtrair números octais (base 8) ou hexadecimais (base 16), o processo é idêntico ao da base decimal. Começamos sempre a somar pelos **dígitos menos significativos** (à direita) e avançamos para a esquerda, gerando um transporte (*carry*) sempre que o resultado atinge ou ultrapassa o valor da base.
+
+---
+
+## 1. Adição em Octal (Base 8)
+
+Sempre que a soma de uma coluna atinge **$8$ ou mais**, subtraímos $8$ ao resultado e transportamos $1$ para a coluna imediatamente à esquerda.
+
+### Exemplo prático: $47_8 + 25_8$
+```text
+      1       (transportes)
+      4 7 8
++     2 5 8
+------------
+      7 4 8
+```
+* **Coluna da direita:** $7 + 5 = 12$. Como $12 \ge 8$, fazemos $12 - 8 = \mathbf{4}$ e transportamos **$1$** para a coluna seguinte.
+* **Coluna da esquerda:** $4 + 2 + 1 \text{ (transportado)} = \mathbf{7}$.
+* **Resultado final:** **$74_8$**.
+
+---
+
+## 2. Adição em Hexadecimal (Base 16)
+
+Sempre que a soma de uma coluna atinge **$16$ ou mais**, subtraímos $16$ ao resultado e transportamos $1$ para a coluna à esquerda (lembrando que $A=10, B=11, C=12, D=13, E=14, F=15$).
+
+### Exemplo prático: $39_{16} + 58_{16}$
+```text
+      1       (transportes)
+      3 9 16
++     5 8 16
+------------
+      9 1 16
+```
+* **Coluna da direita:** $9 + 8 = 17$. Como $17 \ge 16$, fazemos $17 - 16 = \mathbf{1}$ e transportamos **$1$** para a coluna seguinte.
+* **Coluna da esquerda:** $3 + 5 + 1 \text{ (transportado)} = \mathbf{9}$.
+* **Resultado final:** **$91_{16}$**.
