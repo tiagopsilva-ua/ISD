@@ -726,3 +726,37 @@ Estes teoremas envolvem múltiplas variáveis lógicas ($A, B, C$) e permitem si
 * **Teoremas de De Morgan (Essenciais para equivalência de portas):**
   * $\overline{A \cdot B} = A' + B'$
   * $\overline{A + B} = A' \cdot B'$
+
+# Principle of Duality (Princípio da Dualidade)
+
+O **Princípio da Dualidade** afirma que qualquer teorema, axioma ou identidade válida na Álgebra de Boole permanece igualmente verdadeiro se trocarmos entre si os operadores lógicos e os elementos identidade.
+
+Na prática, isto significa que todos os teoremas booleanos existem em **pares duais**: se provares um deles, o seu dual é automaticamente verdadeiro sem precisar de demonstração adicional.
+
+---
+
+## 1. Como obter a expressão Dual
+
+Para encontrar o **dual** de qualquer expressão booleana, aplicamos duas regras simultâneas (mantendo as variáveis e os seus complementos inalterados):
+
+1. **Trocar os operadores:** Substituir todos os **AND** ($\cdot$) por **OR** ($+$), e todos os **OR** ($+$) por **AND** ($\cdot$).
+2. **Trocar as constantes:** Substituir todos os **$0$** por **$1$**, e todos os **$1$** por **$0$**.
+
+> **Nota importante:** As variáveis ($A, B, C...$) e as suas negações ($A', B'$) **não são alteradas** (ao contrário do que acontece nos Teoremas de De Morgan). Atenção também à ordem de precedência: o AND tem prioridade sobre o OR, pelo que deves usar parênteses para preservar a estrutura original da operação ao fazer a troca.
+
+---
+
+## 2. Exemplos de Pares Duais
+
+| Teorema Original | Expressão Dual | Nome / Propriedade |
+| :--- | :--- | :--- |
+| $A + 0 = A$ | $A \cdot 1 = A$ | Identidade |
+| $A + 1 = 1$ | $A \cdot 0 = 0$ | Anulação |
+| $A + A = A$ | $A \cdot A = A$ | Idempotência |
+| $A + A' = 1$ | $A \cdot A' = 0$ | Complementaridade |
+| $A + (B \cdot C) = (A + B) \cdot (A + C)$ | $A \cdot (B + C) = (A \cdot B) + (A \cdot C)$ | Distributiva |
+| $A + (A \cdot B) = A$ | $A \cdot (A + B) = A$ | Absorção |
+
+### Exemplo prático com parênteses:
+* **Expressão original:** $F = (A \cdot B) + (C' \cdot 1)$
+* **Expressão dual ($F^D$):** $F^D = (A + B) \cdot (C' + 0)$
