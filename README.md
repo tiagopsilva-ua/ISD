@@ -232,3 +232,30 @@ A soma de dois bits segue estas regras fundamentais:
 * $1 + 1 + 1 = 11$ ($1$ e transporta **$1$** para a coluna seguinte, quando há transporte anterior)
 
 ### Exemplo prático: $1011_2 + 0110_2$
+```text
+    1 1 1     (transportes)
+    1 0 1 1   (11 em decimal)
++   0 1 1 0   (6 em decimal)
+------------
+  1 0 0 0 1   (17 em decimal)
+```
+
+---
+
+## 2. Subtração Binária
+
+A subtração de bits segue estas regras:
+* $0 - 0 = 0$
+* $1 - 0 = 1$
+* $1 - 1 = 0$
+* $0 - 1 = 1$ (com empréstimo de **$1$** à coluna seguinte, tal como na base 10)
+
+### Exemplo prático: $1010_2 - 0011_2$
+```text
+    1 0 1 0   (10 em decimal)
+-   0 0 1 1   (3 em decimal)
+------------
+    0 1 1 1   (7 em decimal)
+```
+*(Nota no bit menos significativo: $0 - 1$ pede emprestado $1$ ao vizinho, ficando $10_2 - 1_2 = 1$).*
+
