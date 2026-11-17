@@ -423,3 +423,66 @@ Para converter um número positivo no seu equivalente negativo (ou vice-versa) e
     1 0 1 1
 ```
 * **Resultado final:** $-5_{10} = 1011_2$ (em complemento para 2).
+
+# Two’s Complement Representation (Complemento para 2)
+
+A representação em **Two’s Complement** (Complemento para 2) é o padrão universal utilizado na arquitetura de computadores para representar números inteiros com sinal. A sua grande vantagem é permitir que a **adição e a subtração sejam executadas pelo mesmo circuito somador**, eliminando também a ambiguidade de existirem dois zeros ($+0$ e $-0$).
+
+---
+
+## 1. Como funciona o peso dos bits
+
+Num sistema de $N$ bits em Complemento para 2, os pesos são idênticos ao binário natural, **exceto o bit mais significativo (MSB - mais à esquerda)**, que assume um **peso negativo** ($-2^{N-1}$).
+
+* **Exemplo em 4 bits:** Os pesos são **$-8, \ 4, \ 2, \ 1$** ($-2^3, 2^2, 2^1, 2^0$).
+* **Intervalo de representação:** Com $N$ bits, conseguimos representar números desde **$-2^{N-1}$** até **$2^{N-1} - 1$**.
+  * Para **4 bits**: de **$-8$** (`1000`) até **$+7$** (`0111`).
+  * Para **8 bits**: de **$-128$** (`10000000`) até **$+127$** (`01111111`).
+
+---
+
+## 2. Como converter um número negativo para Binário (Two's Complement)
+
+Para obter a representação binária de um número negativo (ex: $-6_{10}$ em 4 bits):
+
+1. Escrevemos o valor absoluto em binário positivo: **$+6_{10} = 0110_2$**
+2. **Invertemos todos os bits** (Complemento para 1): **`1001`**
+3. **Somamos $1$** ao resultado:
+```text
+    1 0 0 1
++         1
+------------
+    1 0 1 0
+```
+* **Resultado:** $-6_{10} = \mathbf{1010_2}$.
+* *(Verificação pelos pesos: $-8 + 0 + 2 + 0 = -6$)*
+
+---
+
+## 3. Como converter de Two's Complement para Decimal
+
+* **Se o bit mais à esquerda (MSB) for `0`:** O número é positivo; converte-se normalmente.
+* **Se o bit mais à esquerda (MSB) for `1`:** O número é negativo. Podemos aplicar o processo inverso (inverter os bits e somar $1$ para descobrir a magnitude) ou somar diretamente os pesos considerando o MSB negativo.
+
+### Exemplo prático: Converter `1101` (4 bits) para Decimal
+* **Método dos pesos:** $(-1 \times 8) + (1 \times 4) + (0 \times 2) + (1 \times 1) = -8 + 4 + 0 + 1 = \mathbf{-3_{10}}$.
+* **Método da inversão:** Invertemos `1101` $\rightarrow$ `0010`, somamos $1$ $\rightarrow$ `0011` ($3_{10}$). Como começava por `1`, o valor é **$-3_{10}$**.
+
+---
+
+## 4. Subtração usando Adição ($A - B = A + (-B)$)
+
+Com Complemento para 2, subtrair dois números resume-se a somar o primeiro com o complemento para 2 do segundo. Qualquer transporte (*carry out*) que saia fora do número de bits definido é simplesmente ignorado.
+
+### Exemplo prático: $7 - 3$ em 4 bits ($7 + (-3)$)
+* $+7_{10} = 0111_2$
+* $-3_{10} = 1101_2$
+
+```text
+    1 1 1 1     (transportes)
+    0 1 1 1     (+7)
++   1 1 0 1     (-3)
+------------
+  1 0 1 0 0     (o 5.º bit '1' à esquerda é descartado)
+```
+* Ficamos com os 4 bits: **`0100`** = **$+4_{10}$**.
