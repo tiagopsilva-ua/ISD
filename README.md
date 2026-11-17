@@ -368,3 +368,58 @@ Se o minuendo for menor que o subtraendo numa coluna, pedimos emprestado **$16$*
 * **Coluna da direita:** $2 - 8$ não é possível. Pedimos emprestado $1$ ao $5$ (que passa a $4$), e somamos a base ($16$) ao $2$, ficando $2 + 16 = 18$. Agora subtraímos: $18 - 8 = \mathbf{10}$. Como $10$ em hexadecimal é a letra **$\text{A}$**, colocamos $\mathbf{A}$.
 * **Coluna da esquerda:** $4 - 1 = \mathbf{3}$.
 * **Resultado final:** **$3A_{16}$**.
+
+# Representação de Números Negativos
+
+Em sistemas digitais, para além dos números positivos, precisamos de representar números negativos. Como os circuitos só entendem $0$ e $1$, o bit mais à esquerda (**MSB** - *Most Significant Bit*) é utilizado como **bit de sinal**:
+* $0$ $\rightarrow$ Número positivo ($+$)
+* $1$ $\rightarrow$ Número negativo ($-$)
+
+Existem três métodos principais para representar números com sinal em binário:
+
+---
+
+## 1. Sinal e Magnitude (Sign-Magnitude)
+
+Neste método, o bit mais à esquerda indica o sinal e os restantes bits representam o valor absoluto (magnitude) do número.
+
+* **Exemplo (em 4 bits):** 
+  * $+5_{10} = 0101_2$
+  * $-5_{10} = 1101_2$ (o bit mais à esquerda passa a $1$)
+
+* **Desvantagem:** O zero tem duas representações possíveis ($+0$ como `0000` e $-0$ como `1000`), o que torna os circuitos de hardware mais complexos.
+
+---
+
+## 2. Complemento para 1 (One's Complement)
+
+Para obter o negativo de um número em Complemento para 1, **invertemos todos os bits** do número positivo respetivo (os $0$ passam a $1$ e os $1$ passam a $0$).
+
+* **Exemplo (em 4 bits):**
+  * Queremos representar $-5_{10}$.
+  * Sabemos que $+5_{10} = 0101_2$.
+  * Invertendo todos os bits: `1010`.
+  * Logo, $-5_{10} = 1010_2$ (em complemento para 1).
+
+---
+
+## 3. Complemento para 2 (Two's Complement)
+
+Este é o **método universalmente utilizado nos computadores modernos**. Resolve o problema do duplo zero e permite que a adição e a subtração de números com sinal sejam feitas exatamente com os mesmos circuitos lógicos.
+
+Para converter um número positivo no seu equivalente negativo (ou vice-versa) em Complemento para 2, seguimos dois passos:
+1. **Invertemos todos os bits** (aplicamos o Complemento para 1).
+2. **Somamos $1$** ao resultado obtido.
+
+### Exemplo prático: Representar $-5_{10}$ em 4 bits (Complemento para 2)
+
+1. Escrevemos o $+5_{10}$ em binário de 4 bits: `0101`
+2. Invertemos os bits: `1010`
+3. Somamos $1$ ao resultado:
+```text
+    1 0 1 0
++         1
+------------
+    1 0 1 1
+```
+* **Resultado final:** $-5_{10} = 1011_2$ (em complemento para 2).
