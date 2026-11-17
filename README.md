@@ -645,3 +645,84 @@ Considerando variáveis binárias ($A, B, C \in \{0, 1\}$):
 * **Teoremas de De Morgan (Essenciais para conversão de portas):**
   * $\overline{A \cdot B} = A' + B'$ *(A NAND é equivalente a uma OR de entradas invertidas)*
   * $\overline{A + B} = A' \cdot B'$ *(A NOR é equivalente a uma AND de entradas invertidas)*
+
+# Single-Variable Theorems (Teoremas de Uma Variável)
+
+Na Álgebra de Boole, os **teoremas de uma única variável** envolvem apenas uma variável lógica ($A$) e as constantes ($0$ ou $1$). Estes teoremas são ferramentas básicas mas essenciais para simplificar expressões booleanas e otimizar circuitos combinacionais.
+
+---
+
+## 1. Teoremas com as Constantes (0 e 1)
+
+Estes teoremas descrevem o comportamento de uma variável quando operada com os valores lógicos fixos $0$ e $1$:
+
+* **Identidade:**
+  * $A + 0 = A$ *(somar zero não altera o valor)*
+  * $A \cdot 1 = A$ *(multiplicar por um não altera o valor)*
+
+* **Anulação (ou Domínio):**
+  * $A + 1 = 1$ *(qualquer coisa somada a 1 resulta em 1)*
+  * $A \cdot 0 = 0$ *(qualquer coisa multiplicada por 0 resulta em 0)*
+
+---
+
+## 2. Teoremas de Idempotência
+
+Demonstram o que acontece quando uma variável é operada consigo mesma:
+
+* $A + A = A$
+* $A \cdot A = A$
+
+---
+
+## 3. Teoremas de Complementaridade
+
+Descrevem a interação entre uma variável e o seu complemento (o seu inverso lógico):
+
+* $A + A' = 1$ *(uma variável somada ao seu inverso dá sempre verdadeiro)*
+* $A \cdot A' = 0$ *(uma variável multiplicada pelo seu inverso dá sempre falso)*
+
+---
+
+## 4. Teorema da Involução (Dupla Negação)
+
+* $(A')' = A$ *(negar uma variável duas vezes anula a negação, regressando ao valor original)*
+
+# Two- and Three-Variable Theorems (Teoremas de Duas e Três Variáveis)
+
+Estes teoremas envolvem múltiplas variáveis lógicas ($A, B, C$) e permitem simplificar e transformar expressões booleanas complexas em circuitos combinacionais.
+
+---
+
+## 1. Propriedades e Leis de Duas Variáveis
+
+* **Propriedade Comutativa:**
+  * $A + B = B + A$
+  * $A \cdot B = B \cdot A$
+
+* **Propriedade Associativa:**
+  * $(A + B) + C = A + (B + C)$
+  * $(A \cdot B) \cdot C = A \cdot (B \cdot C)$
+
+* **Lei da Absorção (Duas Variáveis):**
+  * $A + (A \cdot B) = A$
+  * $A \cdot (A + B) = A$
+  * $A + (A' \cdot B) = A + B$
+  * $A \cdot (A' + B) = A \cdot B$
+
+---
+
+## 2. Teoremas de Três Variáveis
+
+* **Propriedade Distributiva:**
+  * $A \cdot (B + C) = (A \cdot B) + (A \cdot C)$
+  * $A + (B \cdot C) = (A + B) \cdot (A + C)$ *(exclusiva da Álgebra de Boole)*
+
+* **Teorema do Consenso (Consensus Theorem):**
+  * $(A \cdot B) + (A' \cdot C) + (B \cdot C) = (A \cdot B) + (A' \cdot C)$
+  * $(A + B) \cdot (A' + C) \cdot (B + C) = (A + B) \cdot (A' + C)$
+  *(O termo redundante $B \cdot C$ ou $(B + C)$ pode ser eliminado).*
+
+* **Teoremas de De Morgan (Essenciais para equivalência de portas):**
+  * $\overline{A \cdot B} = A' + B'$
+  * $\overline{A + B} = A' \cdot B'$
