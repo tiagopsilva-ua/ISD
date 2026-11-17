@@ -214,3 +214,21 @@ Para convertermos um número hexadecimal para decimal, multiplicamos cada dígit
 * $5 \times 16^0 = 5 \times 1 = 5$
 
 Somando todas as parcelas: $40960 + 2816 + 224 + 5 = \mathbf{44005_{10}}$
+
+---
+# Operações com Números Binários
+
+A adição e a subtração de números binários utilizam técnicas semelhantes às do sistema decimal. A única diferença notória são as regras de cálculo (tabelas operatórias) devido à base 2.
+
+---
+
+## 1. Adição Binária (Soma)
+
+A soma de dois bits segue estas regras fundamentais:
+* $0 + 0 = 0$
+* $0 + 1 = 1$
+* $1 + 0 = 1$
+* $1 + 1 = 10$ ($0$ e transporta **$1$** para a coluna seguinte)
+* $1 + 1 + 1 = 11$ ($1$ e transporta **$1$** para a coluna seguinte, quando há transporte anterior)
+
+### Exemplo prático: $1011_2 + 0110_2$
