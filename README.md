@@ -78,7 +78,11 @@
 | 0100 | 4 | 4 | 4 |
 | 0101 | 5 | 5 | 5 |
 | 0110 | 6 | 6 | 6 |
-| 0111 | 7 | 7 | 7 |
+| 0111 | 7 | 7 | 7 |### 1. NOT (Inversor)
+| A | A' (NOT) |
+| :---: | :---: |
+| 0 | **1** |
+| 1 | **0** |
 | 1000 | 8 | 10 | 8 |
 | 1001 | 9 | 11 | 9 |
 | 1010 | 10 | 12 | A |
@@ -87,3 +91,18 @@
 | 1101 | 13 | 15 | D |
 | 1110 | 14 | 16 | E |
 | 1111 | 15 | 17 | F |
+
+
+# Conversão de Decimal para as outras bases (Método das Divisões Sucessivas)
+
+Para convertermos um número decimal para binário, dividimos o número por 2 fazendo sempre uma divisão inteira. O resto da divisão indica um dos dígitos do binário, sendo que o número lê-se da **última divisão para a primeira** (de baixo para cima).
+
+### Exemplo prático: Converter o número 25 para Binário
+
+* $25 \div 2 = 12$ (com resto **1** $\rightarrow$ este é o último dígito do binário)
+* $12 \div 2 = 6$ (com resto **0**)
+* $6 \div 2 = 3$ (com resto **0**)
+* $3 \div 2 = 1$ (com resto **1**)
+* $1 \div 2 = 0$ (com resto **1** $\rightarrow$ primeiro dígito)
+
+Lendo os restos da última divisão para a primeira, obtemos o código binario completo: **$25_{10} = 11001_2$**.
