@@ -118,6 +118,8 @@ Para convertermos um número decimal para hexadecimal, dividimos o número por 1
 
 Lendo os restos da última divisão para a primeira, obtemos: **$25_{10} = 19_{16}$**.
 
+# Casos especias de conversão
+
 # Conversão de Binário para Octal
 
 Para converter de binário para octal, começamos por separar os bits do número binário em **grupos de 3 dígitos**, da direita para a esquerda. 
@@ -140,15 +142,38 @@ Juntando os dígitos, obtemos o resultado final: **$011101011_2 = 353_8$**.
 
 Para converter de binário para hexadecimal, começamos por separar os bits do número binário em **grupos de 4 dígitos**, da direita para a esquerda. 
 
-Se o número de bits à esquerda não for múltiplo de 4, adicionamos zeros à esquerda até completar o grupo. Em seguida, basta converter cada grupo de 4 bits para o seu valor correspondente em decimal/hexadecimal.
+Se o número de bits à esquerda não for múltiplo de 4, adicionamos zeros à esquerda até completar o grupo. Em seguida, basta converter cada grupo de 4 bits para o seu valor correspondente em hexadecimal.
 
-### Exemplo prático: Converter o binário $11101011_2$ para Octal
+### Exemplo prático: Converter o binário $11101011_2$ para Hexadecimal
 
 1. **Agrupar de 4 em 4 da direita para a esquerda** (e adicionar zeros à esquerda se necessário):
    * $1110 \quad 1011$
 
 2. **Converter cada grupo isoladamente**:
-   * $1110_2 = E_16$
-   * $1011_2 = B_16$
+   * $1110_2 = E_{16}$
+   * $1011_2 = B_{16}$
 
-Juntando os dígitos, obtemos o resultado final: **$011101011_2 = BE_16$**.
+Juntando os dígitos, obtemos o resultado final: **$11101011_2 = EB_{16}$**.
+# Conversão de Octal e Hexadecimal para Binário
+
+Para fazer o processo inverso — converter de octal ou hexadecimal para binário —, fazemos o opuesto: substituímos cada dígito do número pelo seu grupo correspondente de **3 bits** (no caso do Octal) ou **4 bits** (no caso do Hexadecimal).
+
+### Exemplo 1: Converter o octal $753_8$ para Binário
+
+Convertemos cada dígito isoladamente para 3 bits:
+* $7_8 = 111_2$
+* $5_8 = 101_2$
+* $3_8 = 011_2$
+
+Juntando tudo, obtemos o resultado final: **$753_8 = 111101011_2$**.
+
+---
+
+### Exemplo 2: Converter o hexadecimal $A5E_{16}$ para Binário
+
+Convertemos cada dígito isoladamente para 4 bits (lembrando que $A = 10$ e $E = 14$):
+* $A_{16} = 1010_2$
+* $5_{16} = 0101_2$
+* $E_{16} = 1110_2$
+
+Juntando tudo, obtemos o resultado final: **$A5E_{16} = 101001011110_2$**.
