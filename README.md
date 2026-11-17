@@ -802,3 +802,62 @@ Como temos $3$ variáveis ($A, B, C$), a tabela terá $2^3 = 8$ linhas. Para fac
 | **5** | 1 | 0 | 1 | 0 | 0 | **0** |
 | **6** | 1 | 1 | 0 | 1 | 1 | **1** |
 | **7** | 1 | 1 | 1 | 1 | 0 | **1** |
+
+# Minterms and Maxterms (Mintermos e Maxtermos)
+
+Os **Minterms** e **Maxterms** são as formas padrão (canónicas) de representar funções booleanas diretamente a partir de uma Tabela da Verdade. Permitem escrever qualquer expressão lógica de forma sistemática antes de a simplificar.
+
+---
+
+## 1. Minterms ($m_i$) — Soma de Produtos (SOP)
+
+Um **Minterm** é um termo de **produto (AND)** onde **todas** as variáveis da função aparecem exatamente uma vez (na forma normal ou complementada). Cada minterm avalia para **`1`** numa única linha específica da tabela da verdade e para `0` em todas as outras.
+
+* **Regra de escrita:**
+  * Variável $= 1 \rightarrow$ escreve-se na forma **normal** ($A$).
+  * Variável $= 0 \rightarrow$ escreve-se na forma **complementada** ($A'$).
+
+* **Forma Canónica SOP (*Sum of Products*):** A expressão final da função é a **soma (OR)** de todos os minterms onde a saída da tabela da verdade é igual a **`1`**.
+
+---
+
+## 2. Maxterms ($M_i$) — Produto de Somas (POS)
+
+Um **Maxterm** é um termo de **soma (OR)** onde **todas** as variáveis da função aparecem exatamente uma vez. Cada maxterm avalia para **`0`** numa única linha específica da tabela da verdade e para `1` em todas as outras.
+
+* **Regra de escrita (inversa aos minterms):**
+  * Variável $= 0 \rightarrow$ escreve-se na forma **normal** ($A$).
+  * Variável $= 1 \rightarrow$ escreve-se na forma **complementada** ($A'$).
+
+* **Forma Canónica POS (*Product of Sums*):** A expressão final da função é o **produto (AND)** de todos os maxterms onde a saída da tabela da verdade é igual a **`0`**.
+
+---
+
+## 3. Tabela de Referência (3 Variáveis: $A, B, C$)
+
+| Linha ($i$) | A | B | C | Minterm ($m_i$) | Maxterm ($M_i$) |
+| :---: | :---: | :---: | :---: | :---: | :---: |
+| **0** | 0 | 0 | 0 | $m_0 = A' \cdot B' \cdot C'$ | $M_0 = A + B + C$ |
+| **1** | 0 | 0 | 1 | $m_1 = A' \cdot B' \cdot C$ | $M_1 = A + B + C'$ |
+| **2** | 0 | 1 | 0 | $m_2 = A' \cdot B \cdot C'$ | $M_2 = A + B' + C$ |
+| **3** | 0 | 1 | 1 | $m_3 = A' \cdot B \cdot C$ | $M_3 = A + B' + C'$ |
+| **4** | 1 | 0 | 0 | $m_4 = A \cdot B' \cdot C'$ | $M_4 = A' + B + C$ |
+| **5** | 1 | 0 | 1 | $m_5 = A \cdot B' \cdot C$ | $M_5 = A' + B + C'$ |
+| **6** | 1 | 1 | 0 | $m_6 = A \cdot B \cdot C'$ | $M_6 = A' + B' + C$ |
+| **7** | 1 | 1 | 1 | $m_7 = A \cdot B \cdot C$ | $M_7 = A' + B' + C'$ |
+
+*(Nota: Pela Lei de De Morgan, cada maxterm é o complemento exato do minterm da mesma linha: $M_i = (m_i)'$).*
+
+---
+
+## 4. Exemplo Prático de Extração
+
+Considera uma função $F(A, B, C)$ que tem saída **`1`** apenas nas linhas **1, 4 e 7** (e saída **`0`** nas linhas **0, 2, 3, 5 e 6**):
+
+* **Em Soma de Minterms (SOP):**
+  $$F(A, B, C) = \sum m(1, 4, 7) = m_1 + m_4 + m_7$$
+  $$F(A, B, C) = (A' \cdot B' \cdot C) + (A \cdot B' \cdot C') + (A \cdot B \cdot C)$$
+
+* **Em Produto de Maxterms (POS):**
+  $$F(A, B, C) = \prod M(0, 2, 3, 5, 6) = M_0 \cdot M_2 \cdot M_3 \cdot M_5 \cdot M_6$$
+  $$F(A, B, C) = (A+B+C) \cdot (A+B'+C) \cdot (A+B'+C') \cdot (A'+B+C') \cdot (A'+B'+C)$$
