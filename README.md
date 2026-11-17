@@ -135,3 +135,20 @@ Se o número de bits à esquerda não for múltiplo de 3, adicionamos zeros à e
    * $011_2 = 3_8$
 
 Juntando os dígitos, obtemos o resultado final: **$011101011_2 = 353_8$**.
+
+# Conversão de Binário para Hexadecimal
+
+Para converter de binário para hexadecimal, começamos por separar os bits do número binário em **grupos de 4 dígitos**, da direita para a esquerda. 
+
+Se o número de bits à esquerda não for múltiplo de 4, adicionamos zeros à esquerda até completar o grupo. Em seguida, basta converter cada grupo de 4 bits para o seu valor correspondente em decimal/hexadecimal.
+
+### Exemplo prático: Converter o binário $11101011_2$ para Octal
+
+1. **Agrupar de 4 em 4 da direita para a esquerda** (e adicionar zeros à esquerda se necessário):
+   * $1110 \quad 1011$
+
+2. **Converter cada grupo isoladamente**:
+   * $1110_2 = E_16$
+   * $1011_2 = B_16$
+
+Juntando os dígitos, obtemos o resultado final: **$011101011_2 = BE_16$**.
